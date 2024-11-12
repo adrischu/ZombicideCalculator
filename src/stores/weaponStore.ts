@@ -17,4 +17,11 @@ export const weapons = [
     isMeele: true,
     hit: 3,
   } as Weapon,
+  {
+    name: 'Betty',
+    imagePath:
+      'https://patrickgalbraith.github.io/zombicide-card-database/img/cards/equipment/3/betty.jpg',
+    dices: 7,
+    hit: 4,
+  } as Weapon,
 ]

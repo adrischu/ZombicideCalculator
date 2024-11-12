@@ -34,6 +34,7 @@
             Propability to kill at least {{ toKill }} zombies with {{ actions }} actions:
             {{ propability }}%
           </div>
+          <div>Expected kills: {{ expected }}</div>
         </v-tabs-window-item>
       </v-tabs-window>
     </v-card-text>
@@ -60,19 +61,27 @@ const extraResultMeele = ref(0)
 const extraResultRange = ref(0)
 const extraResultAll = ref(0)
 
-const propability = computed(() => {
-  const p = (6 + 1 - selectedWeapon.value!.hit) / 6
+const p = computed(() => {
+  let p = (6 + 1 - selectedWeapon.value!.hit + extraResultAll.value) / 6
+  if (selectedWeapon.value!.isMeele) p += extraResultMeele.value //Falls Waffe Meele ist extra Meele-Würfel dazuzählen
+  if (!selectedWeapon.value!.isMeele) p += extraResultRange.value //Falls Waffe Ranged ist extra Ranged-Würfel dazu zählen
+  return p
+})
+
+const dices = computed(() => {
   let dices = selectedWeapon.value!.dices + extraDiceAll.value //Würfel von Waffe + Extra Würfel(Alle) dazu
-  if (selectedWeapon.value!.isMeele) {
-    //Falls Waffe Meele ist extra Meele-Würfel dazuzählen
-    dices += extraDiceMeele.value
-  }
-  if (!selectedWeapon.value!.isMeele) {
-    //Falls Waffe Ranged ist extra Ranged-Würfel dazu zählen
-    dices += extraDiceRange.value
-  }
+  if (selectedWeapon.value!.isMeele) dices += extraDiceMeele.value //Falls Waffe Meele ist extra Meele-Würfel dazuzählen
+  if (!selectedWeapon.value!.isMeele) dices += extraDiceRange.value //Falls Waffe Ranged ist extra Ranged-Würfel dazu zählen
   dices = useDualWielding.value ? dices * 2 : dices //Wenn Waffe doppelhändig geführt wird Würfel verdoppeln
-  return Math.round(100 * bernoulliMindestens(p, actions.value * dices, toKill.value))
+  return dices
+})
+
+const propability = computed(() => {
+  return Math.round(100 * bernoulliMindestens(p.value, actions.value * dices.value, toKill.value))
+})
+
+const expected = computed(() => {
+  return p.value * actions.value * dices.value
 })
 </script>
 
