@@ -37,7 +37,7 @@
         <v-tabs-window-item value="window-results">
           <plus-minus v-model="toKill">Zombies to kill</plus-minus>
           <plus-minus v-model="actions">Actions available</plus-minus>
-          <v-data-table :items="tableProps" mobile></v-data-table>
+          <v-data-table :items="tableProps"></v-data-table>
         </v-tabs-window-item>
       </v-tabs-window>
     </v-card-text>
@@ -79,12 +79,6 @@ const tableProps = computed(() => {
   })
   return props
 })
-
-const tableHeaders = [
-  { text: 'Name' },
-  { text: 'Propability to kill all Zombies.' },
-  { text: 'Expected kills' },
-]
 </script>
 
 <style scoped>
