@@ -82,9 +82,7 @@ export class Weapon {
       resultRange: number
     },
   ): number {
-    return Math.round(
-      100 * bernoulliMindestens(this.p(extra), actions * this.calcDices(extra), toKill),
-    )
+    return bernoulliMindestens(this.p(extra), actions * this.calcDices(extra), toKill)
   }
 
   expected(

@@ -37,11 +37,7 @@
         <v-tabs-window-item value="window-results">
           <plus-minus v-model="toKill">Zombies to kill</plus-minus>
           <plus-minus v-model="actions">Actions available</plus-minus>
-          <div v-for="selectedWeapon in selectedWeapons" :key="selectedWeapon.name">
-            {{ selectedWeapon.name }}: Propability to kill at least {{ toKill }} zombies with
-            {{ actions }} actions: {{ selectedWeapon.propability(actions, toKill, extra) }}%
-            <div>Expected kills: {{ selectedWeapon.expected(actions, extra) }}</div>
-          </div>
+          <v-data-table :items="tableProps" mobile></v-data-table>
         </v-tabs-window-item>
       </v-tabs-window>
     </v-card-text>
@@ -52,9 +48,9 @@
 <script setup lang="ts">
 import { weapons } from './stores/weaponStore'
 import { Weapon } from './components/typescript/classes/weapon'
-import { ref, type Ref } from 'vue'
+import { computed, ref, type Ref } from 'vue'
 import plusMinus from './components/plus-minus.vue'
-// <img :src="`./assets/card-images/${selectedWeapon!.imagePath}`" />
+
 const selectedWeapons: Ref<Weapon[] | null> = ref<Weapon[] | null>([weapons[0]])
 const toKill = ref(2)
 const actions = ref(3)
@@ -71,6 +67,24 @@ const extra = ref({
 function addWeapon() {
   selectedWeapons.value!.push(weapons[0])
 }
+
+const tableProps = computed(() => {
+  const props: { name: string; propability: number; expectedKills: number }[] = []
+  selectedWeapons.value?.forEach((weapon) => {
+    props.push({
+      name: weapon.name,
+      propability: Math.round(100 * weapon.propability(actions.value, toKill.value, extra.value)),
+      expectedKills: Math.round(weapon.expected(actions.value, extra.value) * 10) / 10,
+    })
+  })
+  return props
+})
+
+const tableHeaders = [
+  { text: 'Name' },
+  { text: 'Propability to kill all Zombies.' },
+  { text: 'Expected kills' },
+]
 </script>
 
 <style scoped>
