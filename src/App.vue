@@ -9,6 +9,7 @@
       <v-tabs-window v-model="tab">
         <v-tabs-window-item value="window-bonus">
           <v-select
+            label="Filter by seasons"
             v-model="selectedSeasons"
             :items="allSeasons"
             item-title="name"
@@ -16,6 +17,14 @@
             multiple
             @update:modelValue="cullSelectedWeapons()"
           >
+            <template v-slot:selection="{ item, index }">
+              <v-chip v-if="index < 10">
+                <span>{{ item.raw.short }}</span>
+              </v-chip>
+              <!-- <span v-if="index === 2" class="text-grey text-caption align-self-center">
+                (+{{ value.length - 2 }} others)
+              </span> -->
+            </template>
           </v-select>
           <plus-minus v-model="settings.extraDiceAll">Extra dice for all attacks</plus-minus>
           <plus-minus v-model="settings.extraDiceMeele">Extra dice for meele attacks</plus-minus>
