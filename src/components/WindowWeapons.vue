@@ -1,12 +1,22 @@
 <template>
   <div class="content">
     <div class="sidebar">
-      <v-tabs v-model="weaponTabs" direction="vertical">
-        <v-tab v-for="(weapon, index) in selectedWeapons" :key="`${weapon!.name} ${index}`">
-          {{ weapon!.name }}
-        </v-tab>
+      <v-tabs v-model="weaponTabs" direction="vertical" height="60px">
+        <div v-for="(weapon, index) in selectedWeapons" :key="`${weapon!.name} ${index}`">
+          <v-tab>
+            <template #default>
+              <v-img
+                style="border-radius: 50%"
+                cover
+                :src="weapon.imagePath"
+                width="40px"
+                height="40px"
+              ></v-img>
+            </template>
+          </v-tab>
+        </div>
         <v-tab>
-          <v-btn @click="addWeapon()">+</v-btn>
+          <v-btn @click="addWeapon()">New</v-btn>
         </v-tab>
       </v-tabs>
     </div>
@@ -22,14 +32,14 @@
             item-title="name"
             return-object
             hide-details
-          >
-          </v-select>
+          ></v-select>
+
+          <v-img :src="selectedWeapon.imagePath" max-width="200" alt="Weapon Image"></v-img>
           <v-checkbox
             v-model="selectedWeapon.useDualWielding"
             label="Use Dual Wielding?"
           ></v-checkbox>
-          <v-img :src="selectedWeapon.imagePath" max-width="200" alt="Weapon Image"></v-img>
-          <v-btn @click="selectedWeapons?.splice(index, 1)">-</v-btn>
+          <v-btn @click="selectedWeapons?.splice(index, 1)">Delete</v-btn>
         </v-tabs-window-item>
       </v-tabs-window>
     </div>
@@ -65,13 +75,13 @@ const weaponPool = computed(() => {
   flex-direction: row;
 }
 .sidebar {
-  width: 10%;
-  height: 100%;
+  height: 100vh;
   align-items: start;
 }
 .weapon-space {
-  width: 90%;
-  height: 100%;
-  align-items: center;
+  width: 80vw;
+  height: 100vh;
+  align-self: flex-start;
+  align-items: left;
 }
 </style>
