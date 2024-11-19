@@ -1,4 +1,4 @@
-import { Season } from '@/components/typescript/classes/season'
+import { Season } from '@/typescript/classes/season'
 export const allSeasons = [
   new Season('s1', 'Season 1 (Basis)', 'S1'),
   new Season('s2', 'Season 2 (Prison Outbreak)', 'PO'),

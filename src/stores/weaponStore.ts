@@ -1,4 +1,4 @@
-import { Weapon } from '@/components/typescript/classes/weapon'
+import { Weapon } from '@/typescript/classes/weapon'
 
 // prettier-ignore
 export const allWeapons = [

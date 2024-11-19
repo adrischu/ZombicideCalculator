@@ -1,5 +1,5 @@
 import { useSettingsStore } from '@/stores/settingsStore'
-import { bernoulliMindestens } from '../stochastics'
+import { bernoulliMindestens } from '../../typescript/stochastics'
 import type { Season } from './season'
 import { allSeasons } from '@/stores/seasonStore'
 
