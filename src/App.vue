@@ -8,18 +8,31 @@
     <v-card-text>
       <v-tabs-window v-model="tab">
         <v-tabs-window-item value="window-bonus">
-          <plus-minus v-model="extra.diceAll">Extra dice for all attacks</plus-minus>
-          <plus-minus v-model="extra.diceMeele">Extra dice for meele attacks</plus-minus>
-          <plus-minus v-model="extra.diceRange">Extra dice for ranged attacks</plus-minus>
-          <plus-minus v-model="extra.resultAll">Extra result for all attacks</plus-minus>
-          <plus-minus v-model="extra.resultMeele">Extra result for meele attacks</plus-minus>
-          <plus-minus v-model="extra.resultRange">Extra result for ranged attacks</plus-minus>
+          <v-select
+            v-model="selectedSeasons"
+            :items="allSeasons"
+            item-title="name"
+            return-object
+            multiple
+            @update:modelValue="cullSelectedWeapons()"
+          >
+          </v-select>
+          <plus-minus v-model="settings.extraDiceAll">Extra dice for all attacks</plus-minus>
+          <plus-minus v-model="settings.extraDiceMeele">Extra dice for meele attacks</plus-minus>
+          <plus-minus v-model="settings.extraDiceRange">Extra dice for ranged attacks</plus-minus>
+          <plus-minus v-model="settings.extraResultAll">Extra result for all attacks</plus-minus>
+          <plus-minus v-model="settings.extraResultMeele"
+            >Extra result for meele attacks</plus-minus
+          >
+          <plus-minus v-model="settings.extraResultRange"
+            >Extra result for ranged attacks</plus-minus
+          >
         </v-tabs-window-item>
         <v-tabs-window-item value="window-weapons">
           <div v-for="(selectedWeapon, index) in selectedWeapons" :key="selectedWeapon.name">
             <v-select
               v-model="selectedWeapons![index]"
-              :items="weapons"
+              :items="weaponPool"
               item-title="name"
               return-object
               hide-details
@@ -46,26 +59,36 @@
 </template>
 
 <script setup lang="ts">
-import { weapons } from './stores/weaponStore'
+import { allWeapons } from './stores/weaponStore'
 import { Weapon } from './components/typescript/classes/weapon'
 import { computed, ref, type Ref } from 'vue'
 import plusMinus from './components/plus-minus.vue'
+import { useSettingsStore } from './stores/settingsStore'
+import { allSeasons } from './stores/seasonStore'
+import type { Season } from './components/typescript/classes/season'
 
-const selectedWeapons: Ref<Weapon[] | null> = ref<Weapon[] | null>([weapons[0]])
+const selectedWeapons: Ref<Weapon[] | null> = ref<Weapon[] | null>([
+  allWeapons.find((o) => o.name === 'Pan')!,
+])
+
+const settings = useSettingsStore()
+const selectedSeasons: Ref<Season[]> = ref(allSeasons)
+const weaponPool = computed(() => {
+  return allWeapons.filter((weapon) => weapon.isIncludedInSeasons(selectedSeasons.value))
+})
+
 const toKill = ref(2)
 const actions = ref(3)
 const tab = ref('window-bonus')
-const extra = ref({
-  diceAll: 0,
-  diceMeele: 0,
-  diceRange: 0,
-  resultAll: 0,
-  resultMeele: 0,
-  resultRange: 0,
-})
 
 function addWeapon() {
-  selectedWeapons.value!.push(weapons[0])
+  selectedWeapons.value!.push(allWeapons[0])
+}
+
+function cullSelectedWeapons() {
+  selectedWeapons.value = selectedWeapons.value!.filter((weapon) =>
+    weapon.isIncludedInSeasons(selectedSeasons.value),
+  )
 }
 
 const tableProps = computed(() => {
@@ -73,8 +96,8 @@ const tableProps = computed(() => {
   selectedWeapons.value?.forEach((weapon) => {
     props.push({
       name: weapon.name,
-      propability: Math.round(100 * weapon.propability(actions.value, toKill.value, extra.value)),
-      expectedKills: Math.round(weapon.expected(actions.value, extra.value) * 10) / 10,
+      propability: Math.round(100 * weapon.propability(actions.value, toKill.value)),
+      expectedKills: Math.round(weapon.expected(actions.value) * 10) / 10,
     })
   })
   return props

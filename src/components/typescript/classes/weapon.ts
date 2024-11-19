@@ -1,4 +1,7 @@
+import { useSettingsStore } from '@/stores/settingsStore'
 import { bernoulliMindestens } from '../stochastics'
+import type { Season } from './season'
+import { allSeasons } from '@/stores/seasonStore'
 
 export class Weapon {
   name: string //Name der Waffe
@@ -12,7 +15,8 @@ export class Weapon {
   isSilentOpeningDoors: boolean //Öffnet Türen ohne Lärm zu machen?
   isSilentAttacking: boolean //Greift an ohne Lärm zu machen?
   useDualWielding: boolean //Zeigt an ob die Waffe aktuell mit Dual Wielding benutzt wird
-  reload: boolean
+  reload: boolean //Muuss diese Waffe neu laden
+  seasons: Season[]
 
   constructor(
     name: string,
@@ -26,6 +30,7 @@ export class Weapon {
     isSilentAttacking: boolean,
     reload: boolean,
     imagePath: string,
+    seasonStrings: string[],
   ) {
     this.name = name
     this.imagePath = imagePath
@@ -39,63 +44,47 @@ export class Weapon {
     this.isSilentAttacking = isSilentAttacking
     this.useDualWielding = false
     this.reload = reload
+
+    this.seasons = []
+    seasonStrings.forEach((seasonString) => {
+      allSeasons.forEach((season) => {
+        if (season.id === seasonString) this.seasons.push(season)
+      })
+    })
   }
 
-  p(extra: {
-    diceAll: number
-    diceMeele: number
-    diceRange: number
-    resultAll: number
-    resultMeele: number
-    resultRange: number
-  }) {
-    let p = (6 + 1 - this.hit + extra.resultAll) / 6
-    if (this.isMeele) p += extra.resultMeele / 6 //Falls Waffe Meele ist extra Meele-Würfel dazuzählen
-    if (!this.isMeele) p += extra.resultRange / 6 //Falls Waffe Ranged ist extra Ranged-Würfel dazu zählen
+  p() {
+    const settings = useSettingsStore()
+    let p = (6 + 1 - this.hit + settings.extraResultAll) / 6
+    if (this.isMeele) p += settings.extraResultMeele / 6 //Falls Waffe Meele ist extra Meele-Würfel dazuzählen
+    if (!this.isMeele) p += settings.extraResultRange / 6 //Falls Waffe Ranged ist extra Ranged-Würfel dazu zählen
     return p
   }
 
-  calcDices(extra: {
-    diceAll: number
-    diceMeele: number
-    diceRange: number
-    resultAll: number
-    resultMeele: number
-    resultRange: number
-  }) {
-    let dices = this.dices + extra.diceAll //Würfel von Waffe + Extra Würfel(Alle) dazu
-    if (this.isMeele) dices += extra.diceMeele //Falls Waffe Meele ist extra Meele-Würfel dazuzählen
-    if (!this.isMeele) dices += extra.diceRange //Falls Waffe Ranged ist extra Ranged-Würfel dazu zählen
+  calcDices() {
+    const settings = useSettingsStore()
+    let dices = this.dices + settings.extraDiceAll //Würfel von Waffe + Extra Würfel(Alle) dazu
+    if (this.isMeele) dices += settings.extraDiceMeele //Falls Waffe Meele ist extra Meele-Würfel dazuzählen
+    if (!this.isMeele) dices += settings.extraDiceRange //Falls Waffe Ranged ist extra Ranged-Würfel dazu zählen
     dices = this.useDualWielding ? dices * 2 : dices //Wenn Waffe doppelhändig geführt wird Würfel verdoppeln
     return dices
   }
 
-  propability(
-    actions: number,
-    toKill: number,
-    extra: {
-      diceAll: number
-      diceMeele: number
-      diceRange: number
-      resultAll: number
-      resultMeele: number
-      resultRange: number
-    },
-  ): number {
-    return bernoulliMindestens(this.p(extra), actions * this.calcDices(extra), toKill)
+  propability(actions: number, toKill: number): number {
+    return bernoulliMindestens(this.p(), actions * this.calcDices(), toKill)
   }
 
-  expected(
-    actions: number,
-    extra: {
-      diceAll: number
-      diceMeele: number
-      diceRange: number
-      resultAll: number
-      resultMeele: number
-      resultRange: number
-    },
-  ) {
-    return this.p(extra) * actions * this.calcDices(extra)
+  expected(actions: number) {
+    return this.p() * actions * this.calcDices()
+  }
+
+  isIncludedInSeasons(seasonsToSearch: Season[]): boolean {
+    let isIncluded: boolean = false
+    seasonsToSearch.forEach((season) => {
+      this.seasons.forEach((thisSeason) => {
+        if (season.id === thisSeason.id) isIncluded = true
+      })
+    })
+    return isIncluded
   }
 }
