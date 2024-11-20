@@ -34,7 +34,7 @@
           :key="`${selectedWeapon.name} ${index}`"
         >
           <v-select
-            width="100%"
+            width="100vw"
             max-width="300px"
             v-model="dataState.selectedWeapons[index]"
             :items="weaponPool"
@@ -44,7 +44,7 @@
           ></v-select>
 
           <v-img
-            style="border-radius: 5px"
+            style="border-radius: 15px"
             :src="selectedWeapon.imagePath"
             width="100vw"
             max-width="300px"
@@ -52,12 +52,12 @@
           ></v-img>
           <v-checkbox
             hide-details
-            width="100%"
+            width="100vw"
             max-width="300px"
             v-model="selectedWeapon.useDualWielding"
             label="Use Dual Wielding?"
           ></v-checkbox>
-          <v-btn width="100%" max-width="300px" @click="dataState.selectedWeapons.splice(index, 1)"
+          <v-btn width="100vw" max-width="300px" @click="dataState.selectedWeapons.splice(index, 1)"
             >Delete Weapon</v-btn
           >
         </v-tabs-window-item>
