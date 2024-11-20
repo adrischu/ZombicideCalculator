@@ -2,39 +2,40 @@
   <!-- --- -->
   <!-- Header-Menü -->
   <!-- --- -->
-  <v-card>
-    <div class="elevation-10" style="margin-bottom: 5px">
-      <v-tabs elevation="30" v-model="generalTabs">
-        <v-tab value="window-settings">Settings</v-tab>
-        <v-tab value="window-weapons">Weapons</v-tab>
-        <v-tab value="window-results">Results</v-tab>
-      </v-tabs>
-    </div>
-    <!-- <v-divider style="margin: 1px" thickness="1"></v-divider>
-    <v-divider style="margin: 1px" thickness="1"></v-divider> -->
 
-    <v-tabs-window v-model="generalTabs">
+  <div class="elevation-10 header" style="margin-bottom: 5px">
+    <v-tabs v-model="generalTabs">
+      <v-tab value="window-settings">Settings</v-tab>
+      <v-tab value="window-weapons">Weapons</v-tab>
+      <v-tab value="window-results">Results</v-tab>
+    </v-tabs>
+  </div>
+  <!-- <v-divider style="margin: 1px" thickness="1"></v-divider>
+    <v-divider style="margin: 1px" thickness="1"></v-divider> -->
+  <div class="content">
+    <v-tabs-window style="width: 100%; height: 100%" v-model="generalTabs">
       <!-- --- -->
       <!-- Fenster für Einstellungen -->
       <!-- --- -->
-      <v-tabs-window-item value="window-settings">
+      <v-tabs-window-item style="width: 100%; height: 100%" value="window-settings">
         <WindowSettings />
       </v-tabs-window-item>
       <!-- ---
         Fenster für Waffenauswahl
         --- -->
 
-      <v-tabs-window-item value="window-weapons">
+      <v-tabs-window-item style="width: 100%; height: 100%" value="window-weapons">
         <WindowWeapons />
       </v-tabs-window-item>
       <!-- ---
         Fenster für Ergebnisse
         --- -->
-      <v-tabs-window-item value="window-results">
+      <v-tabs-window-item style="width: 100%; height: 100%" value="window-results">
         <WindowResults />
       </v-tabs-window-item>
     </v-tabs-window>
-  </v-card>
+  </div>
+  <div class="footer">&copy; Adrian Schubert - {{ new Date().getFullYear() }} - v1.0.0</div>
 </template>
 
 <script setup lang="ts">
@@ -48,8 +49,25 @@ const generalTabs = ref('window-settings')
 </script>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.header {
+  /* height: 7vh; */
+}
+
+.content {
+  /* height: 89.5vh; */
+  flex: 1;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+.footer {
+  /* height: 3.5vh; */
+  background-color: rgb(130, 130, 130);
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  flex: none; /* Footer wird nicht vergrößert */
 }
 
 .logo {

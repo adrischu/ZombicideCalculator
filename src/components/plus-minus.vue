@@ -41,6 +41,8 @@ const decrement = () => {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 button {

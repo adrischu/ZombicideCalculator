@@ -1,7 +1,7 @@
 <template>
-  <div class="content">
+  <div id="weaponwindow" style="width: 100%; height: 100%; display: flex; flex-direction: row">
     <div class="sidebar">
-      <v-tabs align-tabs="end" v-model="weaponTabs" direction="vertical" height="60px">
+      <v-tabs mobile align-tabs="end" v-model="weaponTabs" direction="vertical" height="60px">
         <div v-for="(weapon, index) in dataState.selectedWeapons" :key="`${weapon!.name} ${index}`">
           <v-tab>
             <template #default>
@@ -51,10 +51,15 @@
             alt="Weapon Image"
           ></v-img>
           <v-checkbox
+            hide-details
+            width="100%"
+            max-width="300px"
             v-model="selectedWeapon.useDualWielding"
             label="Use Dual Wielding?"
           ></v-checkbox>
-          <v-btn @click="dataState.selectedWeapons.splice(index, 1)">Delete Weapon</v-btn>
+          <v-btn width="100%" max-width="300px" @click="dataState.selectedWeapons.splice(index, 1)"
+            >Delete Weapon</v-btn
+          >
         </v-tabs-window-item>
       </v-tabs-window>
     </div>
@@ -84,19 +89,16 @@ const weaponPool = computed(() => {
 // }
 </script>
 
-<style>
-.content {
-  flex: 1;
-  flex-direction: row;
-}
+<style scopec>
 .sidebar {
-  height: 100vh;
+  height: 85vh;
+  width: 80px;
   align-items: start;
 }
-.weapon-space {
+/* .weapon-space {
   width: 80vw;
   height: 100vh;
   align-self: flex-start;
   align-items: left;
-}
+} */
 </style>
