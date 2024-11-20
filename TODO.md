@@ -3,3 +3,4 @@
 - vorlöufig alle nicht-implementierten Funktionen mit einem Disclaimer ausstatten
 - result muss bei 1 gekappt werden
 - statistik graph in eigenem tab einbauen (wahrscheinlichkeitsverteilung abhängig von erwarteten kills)
+- overflow für alle Fenster regeln (Auto/scroll)
