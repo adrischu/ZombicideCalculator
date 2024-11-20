@@ -46,7 +46,7 @@
           <v-img
             style="border-radius: 5px"
             :src="selectedWeapon.imagePath"
-            width="100%"
+            width="100vw"
             max-width="300px"
             alt="Weapon Image"
           ></v-img>
