@@ -1,7 +1,7 @@
 <template>
   <v-select
     label="Filter by seasons"
-    v-model="selectedSeasons"
+    v-model="dataState.selectedSeasons"
     :items="allSeasons"
     item-title="name"
     return-object
@@ -13,7 +13,7 @@
         <span>{{ item.raw.short }}</span>
       </v-chip>
       <span v-if="index === 4" class="text-grey text-caption align-self-center">
-        (+{{ selectedSeasons.length - 4 }} others)
+        (+{{ dataState.selectedSeasons.length - 4 }} others)
       </span>
     </template>
   </v-select>
@@ -31,9 +31,11 @@ import { allSeasons } from '@/stores/seasonStore'
 import { useSettingsStore } from '@/stores/settingsStore'
 import plusMinus from './plus-minus.vue'
 const settings = useSettingsStore()
-const selectedSeasons = useDataStateStore().selectedSeasons
-let selectedWeapons = useDataStateStore().selectedWeapons
+const dataState = useDataStateStore()
+
 function seasonSelectionChanged() {
-  selectedWeapons = selectedWeapons.filter((weapon) => weapon!.isIncludedInSeasons(selectedSeasons))
+  dataState.selectedWeapons = dataState.selectedWeapons.filter((weapon) =>
+    weapon.isIncludedInSeasons(dataState.selectedSeasons),
+  )
 }
 </script>

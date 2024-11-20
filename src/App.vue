@@ -2,34 +2,39 @@
   <!-- --- -->
   <!-- Header-Menü -->
   <!-- --- -->
+  <v-card>
+    <div class="elevation-10" style="margin-bottom: 5px">
+      <v-tabs elevation="30" v-model="generalTabs">
+        <v-tab value="window-settings">Settings</v-tab>
+        <v-tab value="window-weapons">Weapons</v-tab>
+        <v-tab value="window-results">Results</v-tab>
+      </v-tabs>
+    </div>
+    <!-- <v-divider style="margin: 1px" thickness="1"></v-divider>
+    <v-divider style="margin: 1px" thickness="1"></v-divider> -->
 
-  <v-tabs v-model="generalTabs">
-    <v-tab value="window-settings">Bonus</v-tab>
-    <v-tab value="window-weapons">Weapons</v-tab>
-    <v-tab value="window-results">Results</v-tab>
-  </v-tabs>
-
-  <v-tabs-window v-model="generalTabs">
-    <!-- --- -->
-    <!-- Fenster für Einstellungen -->
-    <!-- --- -->
-    <v-tabs-window-item value="window-settings">
-      <WindowSettings />
-    </v-tabs-window-item>
-    <!-- ---
+    <v-tabs-window v-model="generalTabs">
+      <!-- --- -->
+      <!-- Fenster für Einstellungen -->
+      <!-- --- -->
+      <v-tabs-window-item value="window-settings">
+        <WindowSettings />
+      </v-tabs-window-item>
+      <!-- ---
         Fenster für Waffenauswahl
         --- -->
 
-    <v-tabs-window-item value="window-weapons">
-      <WindowWeapons />
-    </v-tabs-window-item>
-    <!-- ---
+      <v-tabs-window-item value="window-weapons">
+        <WindowWeapons />
+      </v-tabs-window-item>
+      <!-- ---
         Fenster für Ergebnisse
         --- -->
-    <v-tabs-window-item value="window-results">
-      <WindowResults />
-    </v-tabs-window-item>
-  </v-tabs-window>
+      <v-tabs-window-item value="window-results">
+        <WindowResults />
+      </v-tabs-window-item>
+    </v-tabs-window>
+  </v-card>
 </template>
 
 <script setup lang="ts">
