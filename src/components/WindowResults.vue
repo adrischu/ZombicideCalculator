@@ -4,7 +4,13 @@
     <plus-minus v-model="actions">Actions available</plus-minus>
     <v-divider thickness="2" style="margin-top: 10px; margin-bottom: 10px"></v-divider>
 
-    <v-data-table class="text-center" :items="tableItems" hide-default-footer items-per-page="-1" />
+    <v-data-table
+      :headers="tableHeaders"
+      class="text-center"
+      :items="tableItems"
+      hide-default-footer
+      items-per-page="-1"
+    />
     <div style="text-align: left">
       P: Propability to kill at least {{ toKill }} zombies with {{ actions }} actions.
     </div>
@@ -31,11 +37,11 @@ const tableItems = computed(() => {
   })
   return props
 })
-// const tableHeaders = [
-//   { title: 'Name', key: 'name', align: 'center' },
-//   { title: 'P [%]', key: 'propability', align: 'center' },
-//   { title: 'E [-]', key: 'expectedKills', align: 'center' },
-// ]
+const tableHeaders = [
+  { title: 'Name', key: 'name', align: 'center' },
+  { title: 'P [%]', key: 'propability', align: 'center' },
+  { title: 'E [-]', key: 'expectedKills', align: 'center' },
+]
 </script>
 
 <style scoped></style>
