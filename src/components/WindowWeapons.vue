@@ -79,7 +79,9 @@ function addWeapon() {
 }
 
 const weaponPool = computed(() => {
-  return allWeapons.filter((weapon) => weapon.isIncludedInSeasons(dataState.selectedSeasons))
+  return allWeapons
+    .filter((weapon) => weapon.isIncludedInSeasons(dataState.selectedSeasons))
+    .sort((a, b) => a.name.localeCompare(b.name))
 })
 
 // function cullSelectedWeapons() {
