@@ -25,10 +25,10 @@ import plusMinus from './plus-minus.vue'
 
 const toKill = ref(2)
 const actions = ref(3)
-const selectedWeapons = useDataStateStore().selectedWeapons
+const dataState = useDataStateStore()
 const tableProps = computed(() => {
   const props: { name: string; propability: number; expectedKills: number }[] = []
-  selectedWeapons.forEach((weapon) => {
+  dataState.selectedWeapons.forEach((weapon) => {
     props.push({
       name: weapon!.name,
       propability: Math.round(100 * weapon!.propability(actions.value, toKill.value)),
