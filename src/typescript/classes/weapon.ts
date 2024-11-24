@@ -16,7 +16,11 @@ export class Weapon {
   isSilentAttacking: boolean //Greift an ohne Lärm zu machen?
   useDualWielding: boolean //Zeigt an ob die Waffe aktuell mit Dual Wielding benutzt wird
   reload: boolean //Muuss diese Waffe neu laden
+  supressReload: boolean //Manuelles Unterdrücken der Nachladen-Funktion
   seasons: Season[]
+  killAll: boolean //Waffen die alles im Feld töten (zB Molotov)
+  ultraRed: boolean //FÜr Ultrared Waffen
+  disclaimer: string
 
   constructor(
     name: string,
@@ -31,6 +35,9 @@ export class Weapon {
     reload: boolean,
     imagePath: string,
     seasonStrings: string[],
+    killAll: boolean,
+    ultraRed: boolean,
+    disclaimer: string,
   ) {
     this.name = name
     this.imagePath = imagePath
@@ -44,6 +51,10 @@ export class Weapon {
     this.isSilentAttacking = isSilentAttacking
     this.useDualWielding = false
     this.reload = reload
+    this.supressReload = false
+    this.killAll = killAll
+    this.ultraRed = ultraRed
+    this.disclaimer = disclaimer
 
     this.seasons = []
     seasonStrings.forEach((seasonString) => {
@@ -70,11 +81,29 @@ export class Weapon {
     return dices
   }
 
-  propability(actions: number, toKill: number): number {
+  calcActions(baseActions: number) {
+    //Berechnet die Anzahl an tatsächlich verfügbaren Aktionen
+
+    if (this.reload && !this.supressReload) {
+      //Fall mit Nachladen
+      return Math.ceil(baseActions / 2)
+    } else {
+      //Fall ohne Nachladen
+      return baseActions
+    }
+  }
+
+  propability(baseActions: number, toKill: number): number {
+    const actions = this.calcActions(baseActions)
+    if (this.killAll) return 1 //Für Waffen die alles töten ist Wahrscheinlichkeit 100%
+
     return bernoulliMindestens(this.p(), actions * this.calcDices(), toKill)
   }
 
-  expected(actions: number) {
+  expected(baseActions: number) {
+    const actions = this.calcActions(baseActions)
+    if (this.killAll) return Infinity //Für Waffen die alles töten ist Wahrscheinlichkeit 100%
+
     return this.p() * actions * this.calcDices()
   }
 

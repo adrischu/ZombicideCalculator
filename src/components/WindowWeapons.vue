@@ -1,6 +1,6 @@
 <template>
   <div id="weaponwindow" style="width: 100%; height: 100%; display: flex; flex-direction: row">
-    <div class="sidebar">
+    <div class="sidebar" style="overflow: auto">
       <v-tabs mobile align-tabs="end" v-model="weaponTabs" direction="vertical" height="60px">
         <div v-for="(weapon, index) in dataState.selectedWeapons" :key="`${weapon!.name} ${index}`">
           <v-tab>
@@ -25,7 +25,7 @@
     <v-divider style="margin: 1px" vertical thickness="1"></v-divider>
     <v-divider style="margin: 1px; margin-right: 4px" vertical thickness="1"></v-divider>
 
-    <div class="weapon-space">
+    <div class="weapon-space" style="overflow-y: auto; flex: none">
       <v-tabs-window v-model="weaponTabs">
         <v-tabs-window-item
           transition="false"
@@ -55,11 +55,19 @@
             width="100vw"
             max-width="300px"
             v-model="selectedWeapon.useDualWielding"
-            label="Use Dual Wielding?"
+            label="Use dual wielding?"
+          ></v-checkbox>
+          <v-checkbox
+            hide-details
+            width="100vw"
+            max-width="300px"
+            v-model="selectedWeapon.supressReload"
+            label="Ignore reloading?"
           ></v-checkbox>
           <v-btn width="100vw" max-width="300px" @click="dataState.selectedWeapons.splice(index, 1)"
             >Delete Weapon</v-btn
           >
+          <div v-if="selectedWeapon.disclaimer !== ''">{{ selectedWeapon.disclaimer }}</div>
         </v-tabs-window-item>
       </v-tabs-window>
     </div>
@@ -97,6 +105,14 @@ const weaponPool = computed(() => {
   width: 80px;
   align-items: start;
 }
+.sidebar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.sidebar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 /* .weapon-space {
   width: 80vw;
   height: 100vh;

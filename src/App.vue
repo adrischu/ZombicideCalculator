@@ -2,40 +2,41 @@
   <!-- --- -->
   <!-- Header-Menü -->
   <!-- --- -->
-
-  <div class="elevation-10 header" style="margin-bottom: 5px">
-    <v-tabs v-model="generalTabs">
-      <v-tab value="window-settings">Settings</v-tab>
-      <v-tab value="window-weapons">Weapons</v-tab>
-      <v-tab value="window-results">Results</v-tab>
-    </v-tabs>
-  </div>
-  <!-- <v-divider style="margin: 1px" thickness="1"></v-divider>
+  <div class="layout">
+    <div class="elevation-10 header" style="margin-bottom: 5px">
+      <v-tabs v-model="generalTabs">
+        <v-tab value="window-settings">Settings</v-tab>
+        <v-tab value="window-weapons">Weapons</v-tab>
+        <v-tab value="window-results">Results</v-tab>
+      </v-tabs>
+    </div>
+    <!-- <v-divider style="margin: 1px" thickness="1"></v-divider>
     <v-divider style="margin: 1px" thickness="1"></v-divider> -->
-  <div class="content">
-    <v-tabs-window style="width: 100%; height: 100%" v-model="generalTabs">
-      <!-- --- -->
-      <!-- Fenster für Einstellungen -->
-      <!-- --- -->
-      <v-tabs-window-item style="width: 100%; height: 100%" value="window-settings">
-        <WindowSettings />
-      </v-tabs-window-item>
-      <!-- ---
+    <div class="content">
+      <v-tabs-window style="width: 100%; height: 100%" v-model="generalTabs">
+        <!-- --- -->
+        <!-- Fenster für Einstellungen -->
+        <!-- --- -->
+        <v-tabs-window-item style="width: 100%; height: 100%" value="window-settings">
+          <WindowSettings />
+        </v-tabs-window-item>
+        <!-- ---
         Fenster für Waffenauswahl
         --- -->
 
-      <v-tabs-window-item style="width: 100%; height: 100%" value="window-weapons">
-        <WindowWeapons />
-      </v-tabs-window-item>
-      <!-- ---
+        <v-tabs-window-item style="width: 100%; height: 100%" value="window-weapons">
+          <WindowWeapons />
+        </v-tabs-window-item>
+        <!-- ---
         Fenster für Ergebnisse
         --- -->
-      <v-tabs-window-item style="width: 100%; height: 100%" value="window-results">
-        <WindowResults />
-      </v-tabs-window-item>
-    </v-tabs-window>
+        <v-tabs-window-item style="width: 100%; height: 100%" value="window-results">
+          <WindowResults />
+        </v-tabs-window-item>
+      </v-tabs-window>
+    </div>
+    <div class="footer">&copy; Adrian Schubert - {{ new Date().getFullYear() }} - v1.0.0</div>
   </div>
-  <div class="footer">&copy; Adrian Schubert - {{ new Date().getFullYear() }} - v1.0.0</div>
 </template>
 
 <script setup lang="ts">
@@ -49,14 +50,23 @@ const generalTabs = ref('window-settings')
 </script>
 
 <style scoped>
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+
 .header {
   /* height: 7vh; */
+  flex: none;
 }
 
 .content {
   /* height: 89.5vh; */
   flex: 1;
   flex-direction: column;
+  min-height: 0;
   padding: 0;
   margin: 0;
 }

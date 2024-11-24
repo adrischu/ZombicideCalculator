@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <plus-minus v-model="toKill">Zombies to kill</plus-minus>
-    <plus-minus v-model="actions">Actions available</plus-minus>
+  <div style="overflow: auto">
+    <plus-minus v-model="toKill" :min-value="1">Zombies to kill</plus-minus>
+    <plus-minus v-model="actions" :min-value="1">Actions available</plus-minus>
     <v-divider thickness="2" style="margin-top: 10px; margin-bottom: 10px"></v-divider>
 
     <v-data-table

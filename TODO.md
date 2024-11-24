@@ -1,5 +1,4 @@
 - Tabs mit Wischen (mobile) verschiebbar machen
-- Nachladen Implementieren
 - vorlöufig alle nicht-implementierten Funktionen mit einem Disclaimer ausstatten
-- result muss bei 1 gekappt werden
 - statistik graph in eigenem tab einbauen (wahrscheinlichkeitsverteilung abhängig von erwarteten kills)
+- add scrolling

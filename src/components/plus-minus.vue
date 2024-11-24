@@ -10,10 +10,17 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-// Props definieren
-const props = defineProps<{
+interface Props {
   modelValue: number
-}>()
+  minValue?: number
+  maxValue?: number
+}
+
+// Props definieren
+const { modelValue, minValue = -Infinity, maxValue = Infinity } = defineProps<Props>()
+// const props = defineProps<{
+//   modelValue: number
+// }>()
 
 // Event zum Emitten definieren
 const emit = defineEmits<{
@@ -22,17 +29,17 @@ const emit = defineEmits<{
 
 // Computed property für den Wert
 const value = computed({
-  get: () => props.modelValue,
+  get: () => modelValue,
   set: (newValue: number) => emit('update:modelValue', newValue),
 })
 
 // Methoden für das Inkrementieren und Dekrementieren
 const increment = () => {
-  value.value++
+  if (value.value < maxValue) value.value++
 }
 
 const decrement = () => {
-  value.value--
+  if (value.value > minValue) value.value--
 }
 </script>
 
