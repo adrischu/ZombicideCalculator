@@ -12,7 +12,7 @@
     </div>
     <!-- <v-divider style="margin: 1px" thickness="1"></v-divider>
     <v-divider style="margin: 1px" thickness="1"></v-divider> -->
-    <div class="content">
+    <div id="content" class="content">
       <v-tabs-window style="width: 100%; height: 100%" v-model="generalTabs">
         <!-- --- -->
         <!-- Fenster für Einstellungen -->
@@ -60,13 +60,16 @@ const generalTabs = ref('window-settings')
 .header {
   /* height: 7vh; */
   flex: none;
+  flex-shrink: 0;
 }
 
 .content {
   /* height: 89.5vh; */
+  /* display: flex; */
   flex: 1;
+  overflow: auto;
   flex-direction: column;
-  min-height: 0;
+  min-height: 5;
   padding: 0;
   margin: 0;
 }
@@ -78,11 +81,7 @@ const generalTabs = ref('window-settings')
   margin: 0;
   text-align: center;
   flex: none; /* Footer wird nicht vergrößert */
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+  flex-shrink: 0;
 }
 
 @media (min-width: 1024px) {

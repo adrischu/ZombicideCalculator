@@ -50,6 +50,8 @@ const decrement = () => {
   gap: 10px;
   margin-top: 5px;
   margin-bottom: 5px;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 button {

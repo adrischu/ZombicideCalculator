@@ -1,20 +1,26 @@
 <template>
-  <div style="overflow: auto">
-    <plus-minus v-model="toKill" :min-value="1">Zombies to kill</plus-minus>
-    <plus-minus v-model="actions" :min-value="1">Actions available</plus-minus>
-    <v-divider thickness="2" style="margin-top: 10px; margin-bottom: 10px"></v-divider>
-
-    <v-data-table
-      :headers="tableHeaders"
-      class="text-center"
-      :items="tableItems"
-      hide-default-footer
-      items-per-page="-1"
-    />
-    <div style="text-align: left">
-      P: Propability to kill at least {{ toKill }} zombies with {{ actions }} actions.
+  <div
+    id="results-container"
+    style="height: 100%; width: 100%; display: flex; flex-direction: column"
+  >
+    <div style="flex: none">
+      <plus-minus v-model="toKill" :min-value="1">Zombies to kill</plus-minus>
+      <plus-minus v-model="actions" :min-value="1">Actions available</plus-minus>
+      <v-divider thickness="2" style="margin-top: 10px; margin-bottom: 10px"></v-divider>
     </div>
-    <div style="text-align: left">E: Expected number of kills with {{ actions }} actions.</div>
+    <div style="overflow-y: auto; flex: 1">
+      <v-data-table
+        :headers="tableHeaders"
+        class="text-center"
+        :items="tableItems"
+        hide-default-footer
+        items-per-page="-1"
+      />
+    </div>
+    <div id="explanation" style="text-align: left; flex: none">
+      <div>P: Propability to kill at least {{ toKill }} zombies with {{ actions }} actions.</div>
+      <div>E: Expected number of kills with {{ actions }} actions.</div>
+    </div>
   </div>
 </template>
 

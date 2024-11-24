@@ -25,7 +25,7 @@
     <v-divider style="margin: 1px" vertical thickness="1"></v-divider>
     <v-divider style="margin: 1px; margin-right: 4px" vertical thickness="1"></v-divider>
 
-    <div class="weapon-space" style="overflow-y: auto; flex: none">
+    <div class="weapon-space" style="overflow: auto; flex: none">
       <v-tabs-window v-model="weaponTabs">
         <v-tabs-window-item
           transition="false"
@@ -91,32 +91,18 @@ const weaponPool = computed(() => {
     .filter((weapon) => weapon.isIncludedInSeasons(dataState.selectedSeasons))
     .sort((a, b) => a.name.localeCompare(b.name))
 })
-
-// function cullSelectedWeapons() {
-//   selectedWeapons.value = selectedWeapons.value!.filter((weapon) =>
-//     weapon.isIncludedInSeasons(selectedSeasons.value),
-//   )
-// }
 </script>
 
 <style scopec>
 .sidebar {
-  height: 85vh;
+  /* height: 85vh; */
   width: 80px;
   align-items: start;
-}
-.sidebar {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
 }
+
 .sidebar::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
-
-/* .weapon-space {
-  width: 80vw;
-  height: 100vh;
-  align-self: flex-start;
-  align-items: left;
-} */
 </style>
