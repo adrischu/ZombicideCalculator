@@ -23,25 +23,7 @@
                 <span class="mr-2 cursor-pointer" @click="() => toggleSort(column)"
                   >{{ column.title }}
                 </span>
-                <!-- ---
-                Tooltip
-                --- -->
-                <v-tooltip location="top" v-if="column.headerProps">
-                  <template v-slot:activator="{ props }">
-                    <v-btn icon v-bind="props" size="small" density="compact">
-                      <v-icon color="grey-lighten-1"> mdi-information </v-icon>
-                    </v-btn>
-                  </template>
-                  <span>{{ column.headerProps.text }}</span>
-                </v-tooltip>
-                <template v-if="isSorted(column)">
-                  <v-icon :icon="getSortIcon(column)"></v-icon>
-                </template>
-                <!-- <v-icon
-                  v-if="column.removable"
-                  icon="$close"
-                  @click="() => remove(column.key)"
-                ></v-icon> -->
+                <my-tooltip v-if="column.headerProps" :tooltip-text="column.headerProps.text" />
               </td>
             </template>
           </tr>
@@ -58,7 +40,8 @@
 <script setup lang="ts">
 import { useDataStateStore } from '@/stores/dataState'
 import { computed, ref } from 'vue'
-import plusMinus from './plus-minus.vue'
+import plusMinus from './reusableComponents/plus-minus.vue'
+import myTooltip from './reusableComponents/my-tooltip.vue'
 
 const toKill = ref(2)
 const actions = ref(3)
@@ -74,6 +57,13 @@ const tableItems = computed(() => {
   })
   return props
 })
+
+function toClick({ mouseenter, mouseleave }, e: Event) {
+  clearTimeout(this._timerId)
+  mouseenter(e)
+  this._timerId = setTimeout(() => mouseleave(e), 1000)
+}
+
 const tableHeaders = computed(() => {
   return [
     { title: 'Name', key: 'name', align: 'center' },

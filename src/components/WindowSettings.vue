@@ -29,7 +29,7 @@
 import { useDataStateStore } from '@/stores/dataState'
 import { allSeasons } from '@/stores/seasonStore'
 import { useSettingsStore } from '@/stores/settingsStore'
-import plusMinus from './plus-minus.vue'
+import plusMinus from './reusableComponents/plus-minus.vue'
 const settings = useSettingsStore()
 const dataState = useDataStateStore()
 
