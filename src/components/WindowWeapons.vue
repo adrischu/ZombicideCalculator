@@ -45,7 +45,7 @@
 
           <v-img
             style="border-radius: 15px"
-            :src="selectedWeapon.imagePath"
+            v-bind:src="selectedWeapon.imagePath"
             width="100vw"
             max-width="300px"
             alt="Weapon Image"
@@ -83,6 +83,7 @@ const weaponTabs = ref(0)
 const dataState = useDataStateStore()
 function addWeapon() {
   dataState.selectedWeapons.push(allWeapons[0])
+  //dataState.selectedWeapons.push(Object.assign({}, allWeapons[0]))
   weaponTabs.value = dataState.selectedWeapons.length - 1
 }
 

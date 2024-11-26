@@ -15,7 +15,38 @@
         :items="tableItems"
         hide-default-footer
         items-per-page="-1"
-      />
+      >
+        <template v-slot:headers="{ columns, isSorted, getSortIcon, toggleSort }">
+          <tr>
+            <template v-for="column in columns" :key="column.key">
+              <td>
+                <span class="mr-2 cursor-pointer" @click="() => toggleSort(column)"
+                  >{{ column.title }}
+                </span>
+                <!-- ---
+                Tooltip
+                --- -->
+                <v-tooltip location="top" v-if="column.headerProps">
+                  <template v-slot:activator="{ props }">
+                    <v-btn icon v-bind="props" size="small" density="compact">
+                      <v-icon color="grey-lighten-1"> mdi-information </v-icon>
+                    </v-btn>
+                  </template>
+                  <span>{{ column.headerProps.text }}</span>
+                </v-tooltip>
+                <template v-if="isSorted(column)">
+                  <v-icon :icon="getSortIcon(column)"></v-icon>
+                </template>
+                <!-- <v-icon
+                  v-if="column.removable"
+                  icon="$close"
+                  @click="() => remove(column.key)"
+                ></v-icon> -->
+              </td>
+            </template>
+          </tr>
+        </template>
+      </v-data-table>
     </div>
     <div id="explanation" style="text-align: left; flex: none">
       <div>P: Propability to kill at least {{ toKill }} zombies with {{ actions }} actions.</div>
@@ -43,11 +74,25 @@ const tableItems = computed(() => {
   })
   return props
 })
-const tableHeaders = [
-  { title: 'Name', key: 'name', align: 'center' },
-  { title: 'P [%]', key: 'propability', align: 'center' },
-  { title: 'E [-]', key: 'expectedKills', align: 'center' },
-]
+const tableHeaders = computed(() => {
+  return [
+    { title: 'Name', key: 'name', align: 'center' },
+    {
+      title: 'P [%]',
+      key: 'propability',
+      align: 'center',
+      headerProps: {
+        text: `Propability to kill at least ${toKill.value} zombies with ${actions.value} actions.`,
+      },
+    },
+    {
+      title: 'E [-]',
+      key: 'expectedKills',
+      align: 'center',
+      headerProps: { text: `Expected number of kills with ${actions.value} actions.` },
+    },
+  ]
+})
 </script>
 
 <style scoped></style>
