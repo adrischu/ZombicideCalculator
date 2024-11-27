@@ -52,12 +52,12 @@
           ></v-img>
           <img
             style="border-radius: 15px"
-            src="@/assets/card-images/Season1/pan.jpg"
+            src="`${}@/assets/card-images/Season 1/pan.jpg`"
             width="100vw"
             max-width="300px"
             alt="Weapon Image"
           />
-          22:55
+          23:07
           <v-checkbox
             hide-details
             width="100vw"
