@@ -52,11 +52,12 @@
           ></v-img>
           <img
             style="border-radius: 15px"
-            v-bind:src="selectedWeapon.imagePath"
+            src="@/assets/card-images/Season1/pan.jpg"
             width="100vw"
             max-width="300px"
             alt="Weapon Image"
           />
+          22:33
           <v-checkbox
             hide-details
             width="100vw"

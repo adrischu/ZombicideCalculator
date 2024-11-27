@@ -21,6 +21,7 @@ export class Weapon {
   killAll: boolean //Waffen die alles im Feld töten (zB Molotov)
   ultraRed: boolean //FÜr Ultrared Waffen
   disclaimer: string
+  filePath: string
 
   constructor(
     name: string,
@@ -55,6 +56,7 @@ export class Weapon {
     this.killAll = killAll
     this.ultraRed = ultraRed
     this.disclaimer = disclaimer
+    this.filePath = require(imagePath)
 
     this.seasons = []
     seasonStrings.forEach((seasonString) => {
