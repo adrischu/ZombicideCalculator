@@ -42,29 +42,29 @@
             return-object
             hide-details
           ></v-select>
-
+          {{ selectedWeapon.filePath }}
           <v-img
             style="border-radius: 15px"
-            v-bind:src="selectedWeapon.imagePath"
+            v-bind:src="selectedWeapon.filePath"
             width="100vw"
             max-width="300px"
             alt="Weapon Image"
           ></v-img>
-          <img
+          <!-- <img
             style="border-radius: 15px"
-            src="@/assets/card-images/Season 1/pan.jpg"
+            src="../assets/card-images/Season 1/pan.jpg"
             width="100vw"
             max-width="300px"
             alt="Weapon Image"
           />
           <img
             style="border-radius: 15px"
-            src="`@/assets/card-images/Season 1/pan.jpg`"
+            :src="selectedWeapon.filePath"
             width="100vw"
             max-width="300px"
             alt="Weapon Image"
-          />
-          23:07
+          /> -->
+          00:00
           <v-checkbox
             hide-details
             width="100vw"
@@ -96,6 +96,7 @@ import { ref, computed } from 'vue'
 
 const weaponTabs = ref(0)
 const dataState = useDataStateStore()
+
 function addWeapon() {
   dataState.selectedWeapons.push(allWeapons[0])
   //dataState.selectedWeapons.push(Object.assign({}, allWeapons[0]))

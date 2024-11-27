@@ -12,7 +12,7 @@ export const allWeapons = [
   new Weapon( "Ma's Shotgun (Meele)",[0],1,3,2,true,false,true,false,false,"src/assets/card-images/Season 1/ma's-shotgun.jpg",["s1"],false,false,""),
   new Weapon( "Ma's Shotgun (Ranged)",[0,1],2,3,2,false,false,false,false,true,"src/assets/card-images/Season 1/ma's-shotgun.jpg",["s1"],false,false,""),
   new Weapon( "Molotov",[0,1],1000,1,1000,false,false,false,false,false,"src/assets/card-images/Season 1/molotov.jpg",["s1","s2","rm"],true,false,""),
-  new Weapon( "Pan",[0],1,6,1,true,false,true,false,false,"@/assets/card-images/Season1/pan.jpg",["s1","tcm"],false,false,""),
+  new Weapon( "Pan",[0],1,6,1,true,false,true,false,false,"../../assets/card-images/Season 1/pan.jpg",["s1","tcm"],false,false,""),
   new Weapon( "Pistol",[0,1],1,4,1,false,false,false,false,false,"src/assets/card-images/Season 1/pistol.jpg",["s1","s2","rm"],false,false,""),
   new Weapon( "Rifle",[1,2,3],1,3,1,false,false,false,false,false,"src/assets/card-images/Season 1/rifle.jpg",["s1","s2","rm"],false,false,""),
   new Weapon( "Sawed Off",[0,1],2,3,1,false,false,false,false,true,"src/assets/card-images/Season 1/sawed-off.jpg",["s1","s2","rm"],false,false,""),
