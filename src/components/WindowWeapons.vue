@@ -57,7 +57,7 @@
             max-width="300px"
             alt="Weapon Image"
           />
-          22:33
+          22:55
           <v-checkbox
             hide-details
             width="100vw"
