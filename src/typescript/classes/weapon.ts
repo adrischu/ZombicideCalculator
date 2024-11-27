@@ -56,7 +56,7 @@ export class Weapon {
     this.killAll = killAll
     this.ultraRed = ultraRed
     this.disclaimer = disclaimer
-    this.filePath = require(imagePath)
+    this.filePath = new URL(imagePath, import.meta.url).href
 
     this.seasons = []
     seasonStrings.forEach((seasonString) => {
