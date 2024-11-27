@@ -52,6 +52,13 @@
           ></v-img>
           <img
             style="border-radius: 15px"
+            src="@/assets/card-images/Season 1/pan.jpg"
+            width="100vw"
+            max-width="300px"
+            alt="Weapon Image"
+          />
+          <img
+            style="border-radius: 15px"
             src="`@/assets/card-images/Season 1/pan.jpg`"
             width="100vw"
             max-width="300px"
