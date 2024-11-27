@@ -50,7 +50,7 @@
             max-width="300px"
             alt="Weapon Image"
           ></v-img>
-          <!-- <img
+          <img
             style="border-radius: 15px"
             src="../assets/card-images/Season 1/pan.jpg"
             width="100vw"
@@ -59,11 +59,11 @@
           />
           <img
             style="border-radius: 15px"
-            :src="selectedWeapon.filePath"
+            v-bind:src="selectedWeapon.filePath"
             width="100vw"
             max-width="300px"
             alt="Weapon Image"
-          /> -->
+          />
           00:00
           <v-checkbox
             hide-details
