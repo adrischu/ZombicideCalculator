@@ -50,9 +50,16 @@
             max-width="300px"
             alt="Weapon Image"
           ></v-img>
+          <v-img
+            style="border-radius: 15px"
+            :src="selectedWeapon.filePath"
+            width="100vw"
+            max-width="300px"
+            alt="Weapon Image"
+          ></v-img>
           <img
             style="border-radius: 15px"
-            src="../assets/card-images/Season 1/pan.jpg"
+            :src="selectedWeapon.filePath"
             width="100vw"
             max-width="300px"
             alt="Weapon Image"
