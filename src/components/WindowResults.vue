@@ -16,7 +16,7 @@
         hide-default-footer
         items-per-page="-1"
       >
-        <template v-slot:headers="{ columns, isSorted, getSortIcon, toggleSort }">
+        <template v-slot:headers="{ columns, toggleSort }">
           <tr>
             <template v-for="column in columns" :key="column.key">
               <td>
@@ -29,10 +29,6 @@
           </tr>
         </template>
       </v-data-table>
-    </div>
-    <div id="explanation" style="text-align: left; flex: none">
-      <div>P: Propability to kill at least {{ toKill }} zombies with {{ actions }} actions.</div>
-      <div>E: Expected number of kills with {{ actions }} actions.</div>
     </div>
   </div>
 </template>
@@ -57,12 +53,6 @@ const tableItems = computed(() => {
   })
   return props
 })
-
-function toClick({ mouseenter, mouseleave }, e: Event) {
-  clearTimeout(this._timerId)
-  mouseenter(e)
-  this._timerId = setTimeout(() => mouseleave(e), 1000)
-}
 
 const tableHeaders = computed(() => {
   return [

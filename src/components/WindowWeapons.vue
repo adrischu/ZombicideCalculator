@@ -42,36 +42,13 @@
             return-object
             hide-details
           ></v-select>
-          {{ selectedWeapon.filePath }}
           <v-img
             style="border-radius: 15px"
-            v-bind:src="selectedWeapon.filePath"
+            v-bind:src="selectedWeapon.imagePath"
             width="100vw"
-            max-width="300px"
-            alt="Weapon Image"
-          ></v-img>
-          <v-img
-            style="border-radius: 15px"
-            :src="selectedWeapon.filePath"
-            width="100vw"
-            max-width="300px"
-            alt="Weapon Image"
-          ></v-img>
-          <img
-            style="border-radius: 15px"
-            :src="selectedWeapon.filePath"
-            width="100vw"
-            max-width="300px"
+            max-width="280px"
             alt="Weapon Image"
           />
-          <img
-            style="border-radius: 15px"
-            v-bind:src="selectedWeapon.filePath"
-            width="100vw"
-            max-width="300px"
-            alt="Weapon Image"
-          />
-          00:00
           <v-checkbox
             hide-details
             width="100vw"
