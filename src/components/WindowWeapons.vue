@@ -46,7 +46,7 @@
             style="border-radius: 15px"
             v-bind:src="selectedWeapon.imagePath"
             width="100vw"
-            max-width="280px"
+            max-width="300px"
             alt="Weapon Image"
           />
           <v-checkbox

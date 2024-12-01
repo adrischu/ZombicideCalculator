@@ -16,16 +16,40 @@
         hide-default-footer
         items-per-page="-1"
       >
-        <template v-slot:headers="{ columns, toggleSort }">
+        <template v-slot:headers="{ columns, toggleSort, getSortIcon, isSorted }">
           <tr>
             <template v-for="column in columns" :key="column.key">
               <td>
-                <span class="mr-2 cursor-pointer" @click="() => toggleSort(column)"
-                  >{{ column.title }}
-                </span>
+                <span>{{ column.title }} </span>
                 <my-tooltip v-if="column.headerProps" :tooltip-text="column.headerProps.text" />
+
+                <div>
+                  <v-icon
+                    v-if="!isSorted(column)"
+                    icon="mdi-sort"
+                    size="small"
+                    density="compact"
+                    class="mr-2 cursor-pointer"
+                    @click="() => toggleSort(column)"
+                  ></v-icon>
+                  <v-icon
+                    v-if="isSorted(column)"
+                    :icon="getSortIcon(column)"
+                    size="small"
+                    density="compact"
+                    class="mr-2 cursor-pointer"
+                    @click="() => toggleSort(column)"
+                  ></v-icon>
+                </div>
               </td>
             </template>
+          </tr>
+          <!-- Horizontal Divider -->
+          <tr>
+            <td :colspan="columns.length">
+              <v-divider />
+              <v-divider />
+            </td>
           </tr>
         </template>
       </v-data-table>
@@ -55,12 +79,13 @@ const tableItems = computed(() => {
 })
 
 const tableHeaders = computed(() => {
+  const alignCenter: 'center' | 'left' | 'right' = 'center'
   return [
-    { title: 'Name', key: 'name', align: 'center' },
+    { title: 'Name', key: 'name', align: alignCenter },
     {
       title: 'P [%]',
       key: 'propability',
-      align: 'center',
+      align: alignCenter,
       headerProps: {
         text: `Propability to kill at least ${toKill.value} zombies with ${actions.value} actions.`,
       },
@@ -68,7 +93,7 @@ const tableHeaders = computed(() => {
     {
       title: 'E [-]',
       key: 'expectedKills',
-      align: 'center',
+      align: alignCenter,
       headerProps: { text: `Expected number of kills with ${actions.value} actions.` },
     },
   ]
