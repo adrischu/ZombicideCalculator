@@ -57,16 +57,22 @@
             label="Use dual wielding?"
           ></v-checkbox>
           <v-checkbox
+            v-if="selectedWeapon.reload"
             hide-details
             width="100vw"
             max-width="300px"
             v-model="selectedWeapon.supressReload"
             label="Ignore reloading?"
           ></v-checkbox>
+          <div
+            style="margin-left: 10px; margin-bottom: 10px"
+            v-if="selectedWeapon.disclaimer !== ''"
+          >
+            {{ selectedWeapon.disclaimer }}
+          </div>
           <v-btn width="100vw" max-width="300px" @click="dataState.selectedWeapons.splice(index, 1)"
             >Delete Weapon</v-btn
           >
-          <div v-if="selectedWeapon.disclaimer !== ''">{{ selectedWeapon.disclaimer }}</div>
         </v-tabs-window-item>
       </v-tabs-window>
     </div>
