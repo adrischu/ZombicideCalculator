@@ -70,7 +70,7 @@ const tableItems = computed(() => {
   const props: { name: string; propability: number; expectedKills: number }[] = []
   dataState.selectedWeapons.forEach((weapon) => {
     props.push({
-      name: weapon!.name,
+      name: weapon.useDualWielding ? `${weapon.name} (dual)` : weapon!.name,
       propability: Math.round(100 * weapon!.propability(actions.value, toKill.value)),
       expectedKills: Math.round(weapon!.expected(actions.value) * 10) / 10,
     })
